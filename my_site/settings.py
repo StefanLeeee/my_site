@@ -121,7 +121,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS=[
+STATIC_DIRS=[
     os.path.join(BASE_DIR,'static'),
 ]
 # Heroku设置
@@ -143,6 +143,7 @@ if cwd == '/app' or cwd[:4] == '/tmp':
     # 静态资产配置
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     STATIC_ROOT = 'static'
-    STATICFILES_DIRS = (
+    STATIC_DIRS = (
         os.path.join(BASE_DIR, 'static'),
     )
+STATIC_ROOT=os.path.join(BASE_DIR,'static')
