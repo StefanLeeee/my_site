@@ -124,3 +124,25 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static'),
 ]
+# Heroku设置
+cwd = os.getcwd()   # 获取当前的工作目录
+# 确保项目是否被部署到Heroku上
+if cwd == '/app' or cwd[:4] == '/tmp':
+    # 用于在Heroku上配置服务器
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.config(default='postgres://localhost')
+    }
+
+    # 让request.is_secure()承认X-Forwarded-Proto头
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO','https')
+
+    # 支持所有主机头(host header)
+    ALLOWED_HOSTS = ['*']
+
+    # 静态资产配置
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    STATIC_ROOT = 'static'
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
